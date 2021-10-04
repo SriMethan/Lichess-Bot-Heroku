@@ -233,10 +233,8 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
         def __init__(self, room):
             self.room = room
     opponent = game.black.name if game.white.name == user_profile["username"] else game.white.name
-    conversation.send_reply(SendLine('player'), f'running https://github.com/srimethan/lichess-bot-heroku ')
-    conversation.send_reply(SendLine('player'), f'Good Luck {opponent}')
-    conversation.send_reply(SendLine('spectator'), f'running https://github.com/srimethan/lichess-bot-heroku')  
-    conversation.send_reply(SendLine('spectator'), f'Good Luck {opponent}')
+    conversation.send_reply(SendLine('player'), f'Good Luck @{opponent}')
+    conversation.send_reply(SendLine('spectator'), f'Good Luck @{opponent}')
     
     logger.info("+++ {}".format(game))
 
