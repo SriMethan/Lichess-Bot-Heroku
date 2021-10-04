@@ -428,7 +428,7 @@ def intro():
     return r"""
     .   _/|
     .  // o\
-    .  || ._)  lichess-bot-heroku %s
+    .  || ._)  lichess-bot %s
     .  //__\
     .  )___(   Play on Lichess with a bot
     """ % __version__
