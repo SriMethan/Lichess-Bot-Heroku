@@ -1,9 +1,9 @@
-token: " xxxxxxxxxxxxxxxx"   # Lichess OAuth2 Token.
+token: "xxxxxxxxxxxxxxxx"    # Lichess OAuth2 Token.
 url: "https://lichess.org/"  # Lichess base URL.
 
 engine:                      # Engine settings.
   dir: "./engines/"          # Directory containing engines, relative to this project.
-  name: "sf"                 # Binary name of the engine to use.
+  name: "sf"        # Binary name of the engine to use.
   protocol: "uci"            # "uci" or "xboard"
   ponder: true               # Think on opponent's time.
   polyglot:
@@ -20,26 +20,6 @@ engine:                      # Engine settings.
     min_weight: 1            # Does not select moves with weight below min_weight (min 0, max: 65535).
     selection: "weighted_random" # Move selection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in the 2nd and 3rd case).
     max_depth: 8             # Half move max depth.
-  online_moves:
-    chessdb_book:
-      enabled: false
-      min_time: 20
-      move_quality: "good"     # One of "all", "good", "best"
-      min_depth: 20            # Only for move_quality: "best"
-      contribute: true
-    lichess_cloud_analysis:
-      enabled: false
-      min_time: 20
-      move_quality: "good"     # One of "good", "best"
-      max_score_difference: 50 # Only for move_quality: "good". The maximum score difference (in cp) between the best move and the other moves.
-      min_depth: 20
-      min_knodes: 0
-    online_egtb:
-      enabled: false
-      min_time: 20
-      max_pieces: 7
-      source: "lichess"        # One of "lichess", "chessdb"
-      move_quality: "best"     # One of "good", "best"
 # engine_options:            # Any custom command line params to pass to the engine.
 #   cpuct: 3.1
   homemade_options:
@@ -79,7 +59,7 @@ correspondence:
 challenge:                   # Incoming challenges.
   concurrency: 1             # Number of games to play simultaneously.
   sort_by: "best"            # Possible values: "best" and "first".
-  accept_bot: true           # Accepts challenges coming from other bots.
+  accept_bot: true          # Accepts challenges coming from other bots.
   only_bot: false            # Accept challenges by bots only.
   max_increment: 180         # Maximum amount of increment to accept a challenge. The max is 180. Set to 0 for no increment.
   min_increment: 0           # Minimum amount of increment to accept a challenge.
@@ -105,11 +85,3 @@ challenge:                   # Incoming challenges.
   modes:                     # Game modes to accept.
     - casual                 # Unrated games.
     - rated                  # Rated games - must comment if the engine doesn't try to win.
-
-greeting:
-    # Optional substitution keywords (include curly braces):
-    #   {opponent} to insert opponent's name
-    #   {me} to insert bot's name
-    # Any other words in curly braces will be removed.
-    #hello: "Hi! I'm {me}. Good luck! Type !help for a list of commands I can respond to." # Message to send to chat at the start of a game
-    #goodbye: "Good game!" # Message to send to chat at the end of a game

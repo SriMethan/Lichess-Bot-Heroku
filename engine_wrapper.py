@@ -59,14 +59,14 @@ class EngineWrapper:
     def __init__(self, commands, options, stderr):
         pass
 
-    def search_for(self, board, movetime, ponder, draw_offered):
-        return self.search(board, chess.engine.Limit(time=movetime // 1000), ponder, draw_offered)
+    def search_for(self, board, movetime, ponder):
+        return self.search(board, chess.engine.Limit(time=movetime // 1000), ponder)
 
-    def first_search(self, board, movetime, draw_offered):
+    def first_search(self, board, movetime):
         # No pondering after the first move since a different clock is used afterwards.
-        return self.search(board, chess.engine.Limit(time=movetime // 1000), False, draw_offered)
+        return self.search(board, chess.engine.Limit(time=movetime // 1000), False)
 
-    def search_with_ponder(self, board, wtime, btime, winc, binc, ponder, draw_offered):
+    def search_with_ponder(self, board, wtime, btime, winc, binc, ponder):
         cmds = self.go_commands
         movetime = cmds.get("movetime")
         if movetime is not None:
@@ -78,13 +78,13 @@ class EngineWrapper:
                                         depth=cmds.get("depth"),
                                         nodes=cmds.get("nodes"),
                                         time=movetime)
-        return self.search(board, time_limit, ponder, draw_offered)
+        return self.search(board, time_limit, ponder)
 
-    def search(self, board, time_limit, ponder, draw_offered):
-        result = self.engine.play(board, time_limit, info=chess.engine.INFO_ALL, ponder=ponder, draw_offered=draw_offered)
+    def search(self, board, time_limit, ponder):
+        result = self.engine.play(board, time_limit, info=chess.engine.INFO_ALL, ponder=ponder)
         self.last_move_info = result.info
         self.print_stats()
-        return result
+        return result.move
 
     def print_stats(self):
         for line in self.get_stats():
@@ -144,7 +144,7 @@ class XBoardEngine(EngineWrapper):
             options[f"egtpath {egt_type}"] = egt_paths[egt_type]
         self.engine.configure(options)
         self.last_move_info = {}
-
+        
     def report_game_result(self, game, board):
         # Send final moves, if any, to engine
         self.engine.protocol._new(board, None, {})
