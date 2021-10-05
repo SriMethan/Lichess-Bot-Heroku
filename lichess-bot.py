@@ -230,7 +230,7 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     conversation = Conversation(game, engine, li, __version__, challenge_queue)
 
     class SendLine:
-        def __init__(self, room, me):
+        def __init__(self, room):
             self.room = room
     opponent = game.black.name if game.white.name == user_profile["username"] else game.white.name
     me = game.white.name if game.black.name == user_profile["username"] else game.black.name
