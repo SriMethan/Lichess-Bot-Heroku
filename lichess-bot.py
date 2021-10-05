@@ -239,6 +239,10 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     conversation.send_reply(SendLine('spectator'), f'{me} running github.com/SriMethan/lichess-bot-heroku')
     conversation.send_reply(SendLine('spectator'), f'Good Luck!')
     
+    if variant=="standard":
+        engine_path = os.path.join(cfg["dir"], cfg["sfname"])
+        engineeng = engine.SimpleEngine.popen_uci(engine_path)
+    
     logger.info("+++ {}".format(game))
 
     is_correspondence = game.perf_name == "Correspondence"
