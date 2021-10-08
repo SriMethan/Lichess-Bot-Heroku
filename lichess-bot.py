@@ -228,15 +228,18 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     engine = engine_factory()
     engine.get_opponent_info(game)
     conversation = Conversation(game, engine, li, __version__, challenge_queue)
-
+    
     class SendLine:
         def __init__(self, room):
             self.room = room
     opponent = game.black.name if game.white.name == user_profile["username"] else game.white.name
-    me = game.white.name if game.black.name == user_profile["username"] else game.black.name
-    conversation.send_reply(SendLine('player'), f'{me} running github.com/SriMethan/lichess-bot-heroku')
+    CONFIG = load_config(args.config or "./config.yml")
+    li = lidraughts.Lidraughts(CONFIG["token"], CONFIG["url"], __version__)
+    user_profile = li.get_profile()
+    username = user_profile["username"]
+    conversation.send_reply(SendLine('player'), f'{username} running github.com/srimethan/lidraughts-bot-heroku')
+    conversation.send_reply(SendLine('spectator'), f'{username} running github.com/srimethan/lidraughts-bot-heroku')
     conversation.send_reply(SendLine('player'), f'Good Luck!')
-    conversation.send_reply(SendLine('spectator'), f'{me} running github.com/SriMethan/lichess-bot-heroku')
     conversation.send_reply(SendLine('spectator'), f'Good Luck!')
     
     variant=game.perf_name
